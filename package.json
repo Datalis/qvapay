@@ -1,0 +1,24 @@
+{
+  "name": "qvapay",
+  "version": "0.0.1",
+  "description": "Nodejs Library for QvaPay API",
+  "main": "index.js",
+  "scripts": {
+    "test": "yarn test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Datalis/qvapay.git"
+  },
+  "keywords": [
+    "qvapay",
+    "crypto",
+    "cuba"
+  ],
+  "author": "Abraham Calas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Datalis/qvapay/issues"
+  },
+  "homepage": "https://github.com/Datalis/qvapay#readme"
+}
