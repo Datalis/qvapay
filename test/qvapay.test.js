@@ -114,8 +114,8 @@ test('Create an Invoice OK', () => {
 test('Create an Invoice with bad ammounts', () => {
     const qvapay = new Qvapay({ app_id: 'XXXX', app_secret: 'YYYY' })
     return Promise.all([
-        expect(() => qvapay.create_invoice('XX', "Testing Method", "22211", true)).toThrow('Amount is not a number'),
-        expect(() => qvapay.create_invoice(false, "Testing Method", "22211", true)).toThrow('Amount is not a number')])
+        expect(() => qvapay.create_invoice('XX', "Testing Method", "22211", true)).toThrow('Amount is not a number or is less than 0'),
+        expect(() => qvapay.create_invoice(false, "Testing Method", "22211", true)).toThrow('Amount is not a number or is less than 0')])
 })
 
 test('Create an Invoice with bad description', () => {

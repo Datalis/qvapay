@@ -1,6 +1,6 @@
 {
   "name": "qvapay",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Nodejs Library for QvaPay API",
   "main": "lib/qvapay.js",
   "scripts": {
