@@ -1,10 +1,10 @@
 {
   "name": "qvapay",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Nodejs Library for QvaPay API",
   "main": "lib/qvapay.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --env=node"
   },
   "repository": {
     "type": "git",

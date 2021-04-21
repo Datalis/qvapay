@@ -1,7 +1,8 @@
-const Qvapay = require('../lib/qvapay')
-const axios = require('axios')
 
+const axios = require('axios')
+const Qvapay = require('../lib/qvapay')
 jest.mock('axios');
+
 
 test('Create Qvapay Object', () => {
     const qvapay = new Qvapay({ app_id: 'XXXX', app_secret: 'YYYY' })
@@ -26,7 +27,8 @@ test('Get APP Info', () => {
     }
     resp = { data: info };
     axios.get.mockResolvedValue(resp);
-    qvapay.info().then(data => {
+    qvapay.axios = axios
+    return qvapay.info().then(data => {
         expect(data).toEqual(resp)
     })
 })
@@ -38,7 +40,8 @@ test('Get APP Info', () => {
     const info = "0.00"
     resp = { data: info };
     axios.get.mockResolvedValue(resp);
-    qvapay.balance().then(data => {
+    qvapay.axios = axios
+    return qvapay.balance().then(data => {
         expect(data).toEqual(resp)
     })
 })
@@ -75,7 +78,8 @@ test('Get a list of transactions', () => {
 
     resp = { data: transacciones };
     axios.get.mockResolvedValue(resp);
-    qvapay.transactions().then(data => {
+    qvapay.axios = axios
+    return qvapay.transactions().then(data => {
         expect(data).toEqual(resp)
     })
 })
@@ -95,25 +99,30 @@ test('Create an Invoice OK', () => {
     }
     resp = { data: info };
     axios.get.mockResolvedValue(resp);
-    qvapay.create_invoice(22.233, "Testing Method", "22211", true).then(data => {
-        expect(data).toEqual(resp)
-    })
+    qvapay.axios = axios
+    return Promise.all([
+        qvapay.create_invoice(22.233, "Testing Method", "22211", true).then(data => {
+            expect(data).toEqual(resp)
+        }),
 
-    qvapay.create_invoice("33", "Testing Method", "22211", true).then(data => {
-        expect(data).toEqual(resp)
-    })
+        qvapay.create_invoice("33", "Testing Method", "22211", true).then(data => {
+            expect(data).toEqual(resp)
+        })
+    ])
 })
 
 test('Create an Invoice with bad ammounts', () => {
     const qvapay = new Qvapay({ app_id: 'XXXX', app_secret: 'YYYY' })
-    expect(() => qvapay.create_invoice('XX', "Testing Method", "22211", true)).toThrow('Amount is not a number')
-    expect(() => qvapay.create_invoice(false, "Testing Method", "22211", true)).toThrow('Amount is not a number')
+    return Promise.all([
+        expect(() => qvapay.create_invoice('XX', "Testing Method", "22211", true)).toThrow('Amount is not a number'),
+        expect(() => qvapay.create_invoice(false, "Testing Method", "22211", true)).toThrow('Amount is not a number')])
 })
 
 test('Create an Invoice with bad description', () => {
     const qvapay = new Qvapay({ app_id: 'XXXX', app_secret: 'YYYY' })
-    expect(() => qvapay.create_invoice('02.2', "", "22211", true)).toThrow('Description is not correct')
-    expect(() => qvapay.create_invoice('02.2', 22, "22211", true)).toThrow('Description is not correct')
+    return Promise.all([
+        expect(() => qvapay.create_invoice('02.2', "", "22211", true)).toThrow('Description is not correct'),
+        expect(() => qvapay.create_invoice('02.2', 22, "22211", true)).toThrow('Description is not correct')])
 })
 
 
@@ -162,7 +171,8 @@ test('Get a transaction', () => {
     }
     resp = { data: transaction };
     axios.get.mockResolvedValue(resp);
-    qvapay.transaction("6507ee0d-db6c-4aa9-b59a-75dc7f6eab52").then(data => {
+    qvapay.axios = axios
+    return qvapay.transaction("6507ee0d-db6c-4aa9-b59a-75dc7f6eab52").then(data => {
         expect(data).toEqual(resp)
     })
 })
