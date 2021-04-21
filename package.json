@@ -2,9 +2,9 @@
   "name": "qvapay",
   "version": "0.0.1",
   "description": "Nodejs Library for QvaPay API",
-  "main": "index.js",
+  "main": "lib/qvapay.js",
   "scripts": {
-    "test": "yarn test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/Datalis/qvapay/issues"
   },
-  "homepage": "https://github.com/Datalis/qvapay#readme"
+  "homepage": "https://github.com/Datalis/qvapay#readme",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
 }
